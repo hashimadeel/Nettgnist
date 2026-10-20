@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Nettgnist hjelper bedrifter og organisasjoner med profesjonell video og moderne nettsider.">
+  <title>Nettgnist — Vi gjør ideer synlige</title>
+  <style>
+    :root {
+      --bg: #202936;
+      --bg-soft: #293442;
+      --panel: rgba(16, 34, 52, .78);
+      --text: #f4f8fc;
+      --muted: #a8b8c9;
+      --accent: #00b9f2;
+      --accent-2: #68a8f0;
+      --line: rgba(170, 204, 225, .16);
+      --max: 1160px;
+      --radius: 22px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body {
+      margin: 0; color: var(--text); background:
+        radial-gradient(circle at 85% 8%, rgba(51, 143, 180, .15), transparent 28rem),
+        radial-gradient(circle at 10% 30%, rgba(0, 185, 242, .07), transparent 30rem),
+        var(--bg);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.65; overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    .container { width: min(var(--max), calc(100% - 40px)); margin-inline: auto; }
+    .site-header {
+      position: sticky; top: 0; z-index: 20; backdrop-filter: blur(18px);
+      background: rgba(7, 17, 30, .78); border-bottom: 1px solid var(--line);
+    }
+    .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { font-size: 1.45rem; font-weight: 850; letter-spacing: -.04em; font-family: Georgia, 'Times New Roman', serif; }
+    .brand span { color: var(--accent); }
+    .nav-links { display: flex; align-items: center; gap: clamp(14px, 2.5vw, 28px); color: var(--muted); font-size: .92rem; }
+    .nav-links a { transition: color .2s ease; }
+    .nav-links a:hover { color: var(--accent); }
+    .menu-toggle { display: none; border: 1px solid var(--line); color: var(--text); background: var(--panel); border-radius: 12px; padding: 9px 12px; font-size: 1.15rem; }
+    .hero { min-height: 650px; display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; gap: 40px; padding-block: 94px 100px; }
+    .eyebrow { display: inline-flex; gap: 10px; align-items: center; color: var(--accent); font-size: .78rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 28px; height: 1px; background: var(--accent); }
+    h1 { font-size: clamp(3.2rem, 7vw, 6.3rem); line-height: .98; letter-spacing: -.045em; margin: 24px 0; max-width: 700px; font-family: Georgia, 'Times New Roman', serif; }
+    .gradient-text { color: var(--accent); background: linear-gradient(100deg, var(--accent), #69b5f7); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero-copy { color: var(--muted); font-size: clamp(1.02rem, 1.5vw, 1.18rem); max-width: 640px; animation: enter-up .75s .12s both; }
+    .hero-content .eyebrow { animation: enter-up .65s both; }
+    .hero h1 { animation: enter-up .75s .06s both; }
+    .hero-actions { animation: enter-up .75s .2s both; }
+    @keyframes enter-up { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 13px; margin-top: 30px; }
+    .btn { display: inline-flex; justify-content: center; align-items: center; gap: 10px; min-height: 50px; padding: 13px 21px; border-radius: 4px; font-weight: 750; border: 1px solid transparent; transition: transform .22s ease, box-shadow .22s ease, background .22s ease, border-color .22s ease; }
+    .btn:hover { transform: translateY(-3px); }
+    .btn-primary { color: #071a2c; background: #68a8f0; box-shadow: 0 8px 30px rgba(104, 168, 240, .16); }
+    .btn-primary:hover { box-shadow: 0 12px 36px rgba(104, 168, 240, .28); }
+    .btn-secondary { border-color: var(--line); background: rgba(255,255,255,.035); }
+    .btn-secondary:hover { background: rgba(255,255,255,.08); }
+    .hero-art { position: relative; min-height: 390px; display: grid; place-items: center; }
+    .original-logo { display:block; width:min(100%, 390px); height:auto; object-fit:contain; animation: logo-drift 7s ease-in-out infinite; will-change: transform; }
+    .orb { position: absolute; width: min(32vw, 340px); aspect-ratio: 1; border-radius: 50%; background: conic-gradient(from 20deg, #00b9f2, #6c8cff, #c76bff, #ffb86c, #00b9f2); filter: blur(.2px); animation: spin 20s linear infinite; opacity: .95; }
+    .orb::before { content: ""; position: absolute; inset: 13px; background: var(--bg); border-radius: 50%; }
+    .orb::after { content: ""; position: absolute; inset: 52px; border: 1px solid rgba(255,255,255,.12); border-radius: 50%; }
+    .orb-core { position: relative; z-index: 1; display: grid; place-items: center; width: 150px; height: 150px; border: 1px solid rgba(255,255,255,.2); border-radius: 35px; background: linear-gradient(145deg, rgba(0,185,242,.15), rgba(104,168,240,.09)); box-shadow: 0 25px 90px rgba(0,0,0,.35); transform: rotate(-8deg); animation: float 5s ease-in-out infinite; }
+    .orb-core span { font-size: 4.8rem; font-weight: 900; letter-spacing: -.1em; color: var(--accent); transform: rotate(8deg); }
+    .orbit-dot { position: absolute; z-index: 2; width: 13px; height: 13px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 22px var(--accent); }
+    .dot-one { top: 12%; left: 22%; }.dot-two { right: 11%; top: 35%; background: #9b8cff; box-shadow: 0 0 22px #9b8cff; }.dot-three { bottom: 12%; left: 32%; background: #ffbd77; box-shadow: 0 0 22px #ffbd77; }
+    .hero-caption { position: absolute; bottom: 3px; color: var(--muted); font-size: .78rem; letter-spacing: .2em; text-transform: uppercase; }
+    section { padding-block: 92px; }
+    .section-heading { max-width: 760px; margin-bottom: 42px; }
+    .section-heading h2 { font-size: clamp(2.15rem, 4.3vw, 3.6rem); line-height: 1.05; letter-spacing: -.06em; margin: 14px 0; }
+    .section-heading p { color: var(--muted); margin: 0; font-size: 1.05rem; }
+    .service-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .card { border: 1px solid var(--line); background: linear-gradient(145deg, rgba(17, 37, 57, .82), rgba(11, 25, 40, .78)); border-radius: var(--radius); padding: 28px; transition: transform .25s, border-color .25s, background .25s; }
+    .card:hover { transform: translateY(-4px); border-color: rgba(0,185,242,.48); box-shadow: 0 18px 44px rgba(0,0,0,.13); }
+    .card-icon { width: 52px; height: 52px; display: grid; place-items: center; border-radius: 16px; background: rgba(0,185,242,.1); color: var(--accent); font-size: 1.45rem; margin-bottom: 20px; }
+    .card h3 { font-size: 1.3rem; margin: 0 0 8px; }
+    .card p { margin: 0; color: var(--muted); }
+    .notice { margin-top: 18px; padding: 17px 20px; border: 1px solid rgba(255, 190, 112, .28); background: rgba(255, 190, 112, .07); color: #f3d5ad; border-radius: 14px; }
+    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .why-card { min-height: 190px; }
+    .number { color: var(--accent); font-size: .8rem; font-weight: 850; letter-spacing: .12em; }
+    .why-card h3 { margin-top: 12px; }
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; counter-reset: steps; }
+    .step { position: relative; padding: 24px 20px; border-top: 1px solid rgba(0,185,242,.5); background: linear-gradient(180deg, rgba(0,185,242,.06), transparent); }
+    .step::before { counter-increment: steps; content: "0" counter(steps); color: var(--accent); font-size: .8rem; font-weight: 850; letter-spacing: .1em; }
+    .step h3 { margin: 12px 0 7px; }.step p { margin: 0; color: var(--muted); }
+    .portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .project-visual { height: 150px; border-radius: 15px; margin-bottom: 20px; overflow: hidden; position: relative; background: linear-gradient(135deg, #153b4b, #13223e); }
+    .project-visual::before, .project-visual::after { content: ""; position: absolute; border: 1px solid rgba(255,255,255,.25); border-radius: 50%; }
+    .project-visual::before { width: 190px; height: 190px; top: -70px; right: -20px; }
+    .project-visual::after { width: 110px; height: 110px; bottom: -45px; left: 25px; background: rgba(0,185,242,.18); }
+    .project-visual span { position: absolute; bottom: 17px; left: 18px; font-weight: 850; letter-spacing: -.03em; font-size: 1.15rem; }
+    .project:nth-child(2) .project-visual { background: linear-gradient(135deg, #4b244c, #15253e); }
+    .project:nth-child(3) .project-visual { background: linear-gradient(135deg, #63372c, #1a2740); }
+    .project small { display: block; color: var(--accent); font-weight: 750; margin-bottom: 8px; }
+    .project h3 { margin: 0 0 8px; }.project p { color: var(--muted); margin: 0; }
+    .testimonials { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .quote { font-size: 1.01rem; color: #dce7f1; }
+    .quote-mark { font-size: 2.5rem; color: var(--accent); line-height: 1; }
+    .quote-author { color: var(--muted); font-size: .9rem; margin-top: 20px; }
+    .cta { padding: 54px; border-radius: 30px; border: 1px solid rgba(0,185,242,.25); background: radial-gradient(circle at 100% 0%, rgba(0,185,242,.14), transparent 25rem), linear-gradient(135deg, #102438, #0b1929); display: flex; align-items: center; justify-content: space-between; gap: 30px; }
+    .cta h2 { margin: 12px 0; font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: -.06em; line-height: 1.05; }
+    .cta p { color: var(--muted); max-width: 690px; }
+    .contact-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 24px; }
+    .contact-person { font-size: 1.35rem; font-weight: 800; margin-bottom: 4px; }
+    .contact-role { color: var(--muted); margin-bottom: 24px; }
+    .contact-item { padding: 16px 0; border-top: 1px solid var(--line); }
+    .contact-item strong { display: block; color: var(--accent); font-size: .84rem; text-transform: uppercase; letter-spacing: .1em; }
+    .contact-item span, .contact-item a { display: inline-block; margin-top: 4px; font-size: 1.1rem; }
+    .contact-item small { display: block; color: var(--muted); }
+    .contact-panel { display: flex; flex-direction: column; justify-content: center; }
+    .contact-panel h3 { font-size: 1.5rem; margin-top: 0; }
+    .contact-panel p { color: var(--muted); }
+    footer { padding: 28px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .65s cubic-bezier(.2,.7,.2,1), transform .65s cubic-bezier(.2,.7,.2,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .service-grid .reveal:nth-child(2), .why-grid .reveal:nth-child(2), .steps .reveal:nth-child(2), .portfolio-grid .reveal:nth-child(2), .testimonials .reveal:nth-child(2) { transition-delay: .08s; }
+    .service-grid .reveal:nth-child(3), .why-grid .reveal:nth-child(3), .steps .reveal:nth-child(3), .portfolio-grid .reveal:nth-child(3), .testimonials .reveal:nth-child(3) { transition-delay: .16s; }
+    .why-grid .reveal:nth-child(4) { transition-delay: .06s; }
+    .why-grid .reveal:nth-child(5) { transition-delay: .12s; }
+    .why-grid .reveal:nth-child(6) { transition-delay: .18s; }
+    .why-grid .reveal:nth-child(7) { transition-delay: .24s; }
+    .nav-links a:focus-visible, .btn:focus-visible, .menu-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes float { 0%,100% { transform: translateY(0) rotate(-8deg); } 50% { transform: translateY(-12px) rotate(-5deg); } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } .reveal { opacity: 1; transform: none; } }
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; padding-block: 74px; gap: 18px; }
+      .hero-art { min-height: 320px; }.orb { width: 260px; }
+      .why-grid { grid-template-columns: repeat(2, 1fr); }.steps { grid-template-columns: repeat(2, 1fr); }
+      .portfolio-grid, .testimonials { grid-template-columns: 1fr; }
+      .cta { align-items: flex-start; flex-direction: column; padding: 36px; }
+    }
+    @media (max-width: 680px) {
+      .container { width: min(100% - 28px, var(--max)); }
+      .nav { min-height: 68px; }.menu-toggle { display: block; }
+      .nav-links { display: none; position: absolute; top: 68px; left: 0; right: 0; padding: 18px 22px 22px; background: rgba(7,17,30,.98); border-bottom: 1px solid var(--line); flex-direction: column; align-items: stretch; gap: 0; }
+      .nav-links.open { display: flex; }.nav-links a { padding: 11px 0; }
+      .hero { min-height: auto; padding-block: 65px 55px; }.hero-art { min-height: 280px; }
+      h1 { font-size: clamp(3rem, 14vw, 4.5rem); }.orb { width: 225px; }.orb-core { width: 120px; height: 120px; }.orb-core span { font-size: 3.8rem; }
+      section { padding-block: 66px; }.service-grid, .why-grid, .steps, .contact-grid { grid-template-columns: 1fr; }
+      .card { padding: 23px; }.cta { padding: 28px 23px; border-radius: 22px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#hjem" aria-label="Nettgnist – hjem">Nett<span>gnist</span></a>
+      <button class="menu-toggle" aria-label="Åpne meny" aria-expanded="false" aria-controls="nav-links">☰</button>
+      <nav class="nav-links" id="nav-links" aria-label="Hovedmeny">
+        <a href="#tjenester">Tjenester</a>
+        <a href="#hvorfor">Hvorfor Nettgnist?</a>
+        <a href="#metode">Arbeidsmetode</a>
+        <a href="#portefolje">Portefølje</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container hero" id="hjem">
+      <div class="hero-content">
+        <div class="eyebrow">VIDEO · WEB · APPER · MARKEDSFØRING</div>
+        <h1>Vi gjør ideer <span class="gradient-text">synlige.</span></h1>
+        <p class="hero-copy">Vi hjelper bedrifter og organisasjoner med profesjonell video, moderne nettsider, brukervennlige apper og målrettet digital markedsføring — slik at du blir sett, hørt og husket.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#kontakt">Kontakt oss <span aria-hidden="true">↗</span></a>
+          <a class="btn btn-secondary" href="#tjenester">Se våre tjenester <span aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+      <div class="hero-art" aria-label="Abstrakt, fargerik Nettgnist-grafikk">
+        <div class="orb"></div><div class="orb-core"><span>N</span></div>
+        <i class="orbit-dot dot-one"></i><i class="orbit-dot dot-two"></i><i class="orbit-dot dot-three"></i>
+        <div class="hero-caption">Kreativitet møter teknologi</div>
+      </div>
+    </div>
+
+    <section id="tjenester">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="eyebrow">Våre tjenester</div>
+          <h2>Alt du trenger for å lykkes digitalt</h2>
+          <p>Fra idé til ferdig produkt — vi spesialiserer oss på profesjonell video og moderne nettsider som gir deg synlighet og resultater.</p>
+        </div>
+        <div class="service-grid">
+          <article class="card reveal">
+            <div class="card-icon" aria-hidden="true">▶</div>
+            <h3>Videoredigering</h3>
+            <p>Profesjonell klipping, fargegradering og grafikkanimering. Vi skaper videoer som engasjerer og konverterer — fra korte sosiale medier-klipp til fullproduserte bedriftsfilmer.</p>
+          </article>
+          <article class="card reveal">
+            <div class="card-icon" aria-hidden="true">⌘</div>
+            <h3>Nettsider</h3>
+            <p>Skreddersydde, responsive nettsider med moderne design og høy ytelse. Vi bygger digitale opplevelser som både ser bra ut og konverterer besøkende til kunder.</p>
+          </article>
+        </div>
+        <div class="notice reveal">Merk: Vi tilbyr for øyeblikket ikke apputvikling eller digital markedsføring. Ta kontakt for mer informasjon.</div>
+      </div>
+    </section>
+
+    <section id="hvorfor">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="eyebrow">Hvorfor Nettgnist?</div>
+          <h2>Din digitale partner — fra visjon til virkelighet</h2>
+          <p>Vi er ikke et tradisjonelt byrå. Nettgnist kombinerer kreativ tenkning med teknisk presisjon for å levere løsninger som faktisk gjør en forskjell. Vi er dedikerte, løsningsorienterte og lidenskapelig opptatt av resultatene dine.</p>
+        </div>
+        <div class="why-grid">
+          <article class="card why-card reveal"><div class="number">01</div><h3>✦ Kreativitet</h3><p>Originale ideer og friske perspektiver som skiller deg ut i mengden.</p></article>
+          <article class="card why-card reveal"><div class="number">02</div><h3>★ Kvalitet</h3><p>Høye standarder i alt vi leverer — ingen kompromisser.</p></article>
+          <article class="card why-card reveal"><div class="number">03</div><h3>♦ Personlig service</h3><p>Tett dialog og dedikert oppfølging gjennom hele prosessen.</p></article>
+          <article class="card why-card reveal"><div class="number">04</div><h3>⚡ Moderne teknologi</h3><p>Vi bruker de nyeste verktøyene og metodene i bransjen.</p></article>
+          <article class="card why-card reveal"><div class="number">05</div><h3>◎ Målbare resultater</h3><p>Vi leverer ikke bare design — vi leverer vekst og synlighet du kan måle.</p></article>
+          <article class="card why-card reveal"><div class="number">06</div><h3>🎥 Profesjonelt utstyr</h3><p>Vi har alt utstyr til filming, høyttaler og presentatør klar.</p></article>
+          <article class="card why-card reveal"><div class="number">07</div><h3>🤝 Vi tar oss av alt</h3><p>Fra planlegging og filming til redigering og publisering — vi håndterer hele prosessen.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="metode">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="eyebrow">Vår arbeidsmetode</div>
+          <h2>Slik jobber vi</h2>
+          <p>En strukturert og transparent prosess sikrer at vi leverer på tid, på budsjett og over forventning — hver gang.</p>
+        </div>
+        <div class="steps">
+          <article class="step reveal"><h3>Idé</h3><p>Vi lytter til dine mål og utforsker mulighetene sammen med deg.</p></article>
+          <article class="step reveal"><h3>Planlegging</h3><p>Konsept, strategi og tidsplan legges opp med tydelige milepæler.</p></article>
+          <article class="step reveal"><h3>Produksjon</h3><p>Vi bygger, designer og skaper med presisjon og kreativ kraft.</p></article>
+          <article class="step reveal"><h3>Lansering</h3><p>Ferdig produkt leveres, lanseres og følges opp for best mulig resultat.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="portefolje">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="eyebrow">Portefølje</div>
+          <h2>Utvalgte prosjekter</h2>
+          <p>Vi er stolte av arbeidet vi har levert for våre kunder. Her er et utvalg av hva vi har skapt for noen av dem.</p>
+        </div>
+        <div class="portfolio-grid">
+          <article class="card project reveal">
+            <div class="project-visual"><span>Afghan Nøtter</span></div>
+            <small>Nettside</small><h3>Nettside — Afghan Nøtter</h3>
+            <p>Vi utviklet en helhetlig og stemningsfull nettside for denne populære restauranten. Resultatet er en sterk digital tilstedeværelse som gjenspeiler autentisitet og varme, og som gjør det enkelt for gjester å finne informasjon og booke bord.</p>
+          </article>
+          <article class="card project reveal">
+            <div class="project-visual"><span>Munch Box</span></div>
+            <small>Video &amp; Nettside</small><h3>Video &amp; Nettside — Munch Box</h3>
+            <p>Vi produserte en engasjerende promoteringsfilm og designet en moderne, brukervennlig nettside for Munch Box — med fokus på tydelig merkevare, enkel bestillingsflyt og mobiloptimalisering for å nå flest mulig kunder.</p>
+          </article>
+          <article class="card project reveal">
+            <div class="project-visual"><span>Burger Shack</span></div>
+            <small>Video</small><h3>Video — Burger Shack</h3>
+            <p>En appetittvekkende og cinematisk promoteringsfilm som viser frem Burger Shacks mat og atmosfære. Filmen ble brukt aktivt i sosiale medier og ga merkbart økt synlighet og engasjement.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="kundene">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="eyebrow">Hva kundene sier</div>
+          <h2>Tillit bygges gjennom resultater</h2>
+          <p>Vi måles på resultatene vi skaper. Her er hva noen av våre kunder sier om samarbeidet med Nettgnist.</p>
+        </div>
+        <div class="testimonials">
+          <article class="card reveal"><div class="quote-mark">“</div><p class="quote">Nettgnist laget en video for oss som vi er enormt stolte av. De tok seg tid til å forstå hvem vi er, hva vi står for, og hva vi ønsker å formidle til samfunnet rundt oss. Resultatet ble en film som virkelig fanger sjelen til vårt fellesskap. Vi har fått utrolig mange positive tilbakemeldinger fra både medlemmer og nye besøkende.</p><div class="quote-author">— Representant, Jamia Al Marifah moske, Oslo</div></article>
+          <article class="card reveal"><div class="quote-mark">“</div><p class="quote">Vi trengte en nettside som virkelig speilte hvem vi er — varm, autentisk og innbydende. Nettgnist leverte akkurat det. De lyttet til oss, forstod merkevaren vår og skapte noe vi er veldig stolte av å vise frem. Vi merker tydelig at flere kunder finner oss og tar kontakt.</p><div class="quote-author">— Eier, Afghan Nøtter</div></article>
+          <article class="card reveal"><div class="quote-mark">“</div><p class="quote">Promoteringsfilmen Nettgnist laget for oss overgikk alle forventninger. De fanget stemningen, maten og atmosfæren vår på en måte som virkelig treffer folk. Siden filmen kom ut har vi merket en klar økning i trafikk og engasjement i sosiale medier. Vi kan ikke anbefale dem nok.</p><div class="quote-author">— Daglig leder, Burger Shack</div></article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="cta reveal">
+          <div>
+            <div class="eyebrow">Klar for neste steg?</div>
+            <h2>La oss skape noe ekstraordinært sammen</h2>
+            <p>Enten du har en konkret idé eller bare vet at du trenger å styrke din digitale posisjon — vi er klar til å lytte. Ta kontakt for en uforpliktende samtale, og la oss se hva vi kan skape for deg.</p>
+            <p>Enten du har en konkret idé eller bare vet at du trenger å styrke din digitale posisjon — vi er klar til å lytte.</p>
+          </div>
+          <a class="btn btn-primary" href="#kontakt">Kontakt oss <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section id="kontakt">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="eyebrow">Kontakt oss</div>
+          <h2>Ta kontakt — vi svarer raskt</h2>
+          <p>Du er alltid velkommen til å ta kontakt direkte. Vi ser frem til å høre fra deg og svarer så raskt vi kan.</p>
+        </div>
+        <div class="contact-grid">
+          <article class="card reveal">
+            <div class="contact-person">Mohammad Hashim Adeel</div>
+            <div class="contact-role">Grunnlegger og daglig leder i Nettgnist</div>
+            <div class="contact-item"><strong>Telefon</strong><a href="tel:+4741299138">412 99 138</a><small>Tilgjengelig 12:00–22:00</small></div>
+            <div class="contact-item"><strong>E-post</strong><a href="mailto:nettgnist@gmail.com">nettgnist@gmail.com</a><small>Vi svarer innen én virkedag</small></div>
+          </article>
+          <article class="card contact-panel reveal">
+            <h3>Ta kontakt — vi svarer raskt</h3>
+            <p>Du er alltid velkommen til å ta kontakt direkte. Vi ser frem til å høre fra deg og svarer så raskt vi kan.</p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="mailto:nettgnist@gmail.com">Send e-post ↗</a>
+              <a class="btn btn-secondary" href="tel:+4741299138">Ring oss ↗</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <a class="brand" href="#hjem">Nett<span>gnist</span></a>
+      <span>© <span id="year"></span> Nettgnist. Alle rettigheter forbeholdt.</span>
+      <a href="#hjem">Til toppen ↑</a>
+    </div>
+  </footer>
+
+  <script>
+    const menuButton = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    menuButton.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      menuButton.setAttribute('aria-expanded', String(isOpen));
+      menuButton.setAttribute('aria-label', isOpen ? 'Lukk meny' : 'Åpne meny');
+      menuButton.textContent = isOpen ? '×' : '☰';
+    });
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        menuButton.setAttribute('aria-expanded', 'false');
+        menuButton.setAttribute('aria-label', 'Åpne meny');
+        menuButton.textContent = '☰';
+      });
+    });
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(element => observer.observe(element));
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
